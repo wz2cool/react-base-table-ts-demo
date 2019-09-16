@@ -5,6 +5,6 @@ import * as React from "react";
 export default class About extends React.Component {
   public render() {
     console.log(BaseTable);
-    return <div><Column key={"123"} dataKey={"1213"} /></div>;
+    return <div><Column key={"123"} dataKey={"1213"} align="center" width={600} frozen={"left"} /></div>;
   }
 }
