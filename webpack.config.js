@@ -115,7 +115,19 @@ const config = {
           "css-loader",
           "less-loader"
         ]
-      }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: { modules: true },
+          },
+          "sass-loader",
+        ],
+        exclude: [path.resolve(__dirname, "node_modules")],
+      },
     ]
   },
   externals: {
@@ -148,7 +160,7 @@ if (isDev) {
   threadLoaderOptions.poolTimeout = Infinity;
 } else {
   console.log("use UglifyJSPlugin==================================");
-  compressOption = {};
+  const compressOption = {};
   if (process.env.BUILD_ENV === "prd") {
     console.log("remove console.log");
     compressOption.pure_funcs = ["console.log"];
