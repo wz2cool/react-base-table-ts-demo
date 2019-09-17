@@ -6,14 +6,12 @@ import { Restaurant } from "../../model/Restaurant";
 
 export default class About extends React.Component {
   private handleRowOnClick(param: RowEventHandler<Restaurant>) {
-    console.log(typeof (param.event));
+    console.log(param);
   }
-
-  
 
   public render() {
     const rowEventHandlers: RowEventHandlers<Restaurant> = {
-      onClick: this.handleRowOnClick,
+      onDoubleClick: this.handleRowOnClick,
     };
 
     const data = MockService.Instance.getRestaurants();
