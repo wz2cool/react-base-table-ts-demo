@@ -1,13 +1,9 @@
 import BaseTable, { Column } from "react-base-table";
 import "react-base-table/styles.css";
-
 import * as React from "react";
 import { MockService } from "../../service/MockService";
 
 export default class About extends React.Component {
-
-
-
   public render() {
     const data = MockService.Instance.getRestaurants();
 

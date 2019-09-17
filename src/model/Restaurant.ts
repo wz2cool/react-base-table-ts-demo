@@ -2,6 +2,7 @@
  * 餐厅
  */
 export class Restaurant {
+    public id: number;
     /**
      * 店名
      */
