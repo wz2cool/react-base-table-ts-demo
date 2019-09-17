@@ -113,13 +113,28 @@ declare module "react-base-table" {
         headerRenderer?: React.ReactType | React.ReactElement,
     }
 
+    export interface RowEventHandler<T> {
+        rowData: T,
+        rowIndex: number,
+        rowKey: number | string
+        event: any
+    }
+
+    export interface RowEventHandlers<T> {
+        onClick?: (param: RowEventHandler<T>) => void,
+        onDoubleClick?: (param: RowEventHandler<T>) => void,
+        onContextMenu?: (param: RowEventHandler<T>) => void,
+        onMouseEnter?: (param: RowEventHandler<T>) => void,
+        onMouseLeave?: (param: RowEventHandler<T>) => void,
+    }
+
     /**
      * Column for BaseTable
      */
     export class Column extends React.Component<IColumnProps, {}> {
     }
 
-    interface IBaseTableProps {
+    interface IBaseTableProps<T> {
         /**
          * Prefix for table's inner className
          */
@@ -143,11 +158,11 @@ declare module "react-base-table" {
         /**
          * The data for the table
          */
-        data?: any[],
+        data?: T[],
         /**
          * The data be frozen to top, `rowIndex` is negative and started from `-1`
          */
-        frozenData?: any,
+        frozenData?: T,
         /**
          * The key field of each data item
          */
@@ -323,29 +338,29 @@ declare module "react-base-table" {
          * A callback function when scrolling the table within `onEndReachedThreshold` of the bottom
          * The handler is of the shape of `({ distanceFromEnd }) => *`
          */
-        onEndReached: (param: { distanceFromEnd: any }) => void,
+        onEndReached?: (param: { distanceFromEnd: any }) => void,
         /**
          * Threshold in pixels for calling `onEndReached`.
          */
-        onEndReachedThreshold: number,
+        onEndReachedThreshold?: number,
         /**
          * A callback function with information about the slice of rows that were just rendered
          * The handler is of the shape of `({ overscanStartIndex, overscanStopIndex, startIndex， stopIndex }) => *`
          */
-        onRowsRendered: (param: { overscanStartIndex: any, overscanStopIndex: any, startIndex: any, stopIndex: any }) => void,
+        onRowsRendered?: (param: { overscanStartIndex: any, overscanStopIndex: any, startIndex: any, stopIndex: any }) => void,
         /**
          * A callback function when the scrollbar presence state changed
          * The handler is of the shape of `({ size, vertical, horizontal }) => *`
          */
-        onScrollbarPresenceChange: (param: { size: any, vertical: any, horizontal: any }) => void,
+        onScrollbarPresenceChange?: (param: { size: any, vertical: any, horizontal: any }) => void,
         /**
          * A object for the row event handlers
          * Each of the keys is row event name, like `onClick`, `onDoubleClick` and etc.
          * Each of the handlers is of the shape of `({ rowData, rowIndex, rowKey, event }) => object`
          */
-        rowEventHandlers: (param: { rowData: any, rowIndex: any, rowKey: any, event: any }) => any,
+        rowEventHandlers?: RowEventHandlers<T>,
     }
 
-    export default class BaseTable extends React.PureComponent<IBaseTableProps, {}> {
+    export default class BaseTable<T> extends React.PureComponent<IBaseTableProps<T>, {}> {
     }
 }

@@ -1,20 +1,32 @@
-import BaseTable, { Column } from "react-base-table";
+import BaseTable, { Column, RowEventHandlers, RowEventHandler } from "react-base-table";
 import "react-base-table/styles.css";
 import * as React from "react";
 import { MockService } from "../../service/MockService";
+import { Restaurant } from "../../model/Restaurant";
 
 export default class About extends React.Component {
+  private handleRowOnClick(param: RowEventHandler<Restaurant>) {
+    console.log(typeof (param.event));
+  }
+
+  
+
   public render() {
+    const rowEventHandlers: RowEventHandlers<Restaurant> = {
+      onClick: this.handleRowOnClick,
+    };
+
     const data = MockService.Instance.getRestaurants();
 
     return <div>
-      <BaseTable
+      <BaseTable<Restaurant>
         fixed={true}
         width={600}
         height={400}
         data={data}
         rowHeight={30}
         headerHeight={30}
+        rowEventHandlers={rowEventHandlers}
       >
         <Column key="name" width={200} dataKey="name" title="餐厅名称" frozen={true} />
         <Column key="province" width={80} dataKey="province" title="省" />
