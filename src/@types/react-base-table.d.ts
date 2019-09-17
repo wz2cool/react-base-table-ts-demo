@@ -42,7 +42,7 @@ declare module "react-base-table" {
     }
 
 
-    interface IColumnProps {
+    interface IColumnProps<T> {
         /**
          * Class name for the column cell, could be a callback to return the class name
          * The callback is of the shape of `({ cellData, columns, column, columnIndex, rowData, rowIndex }) => string`
@@ -105,7 +105,8 @@ declare module "react-base-table" {
          * Custom column cell renderer
          * The renderer receives props `{ cellData, columns, column, columnIndex, rowData, rowIndex, container, isScrolling }`
          */
-        cellRenderer?: React.ReactType | React.ReactElement,
+        // cellRenderer?: React.ReactType<T> | React.ReactElement<T>,
+        cellRenderer?: React.ComponentType<CellRenderProps<T>>,
         /**
          * Custom column header renderer
          * The renderer receives props `{ columns, column, columnIndex, headerIndex, container }`
@@ -131,7 +132,7 @@ declare module "react-base-table" {
     /**
      * Column for BaseTable
      */
-    export class Column extends React.Component<IColumnProps, {}> {
+    export class Column<T> extends React.Component<IColumnProps<T>, {}> {
     }
 
     interface IBaseTableProps<T> {
@@ -150,11 +151,11 @@ declare module "react-base-table" {
         /**
          * A collection of Column
          */
-        children?: React.ReactNode,
+        children?: React.ReactElement<T>[],
         /**
          * Columns for the table
          */
-        columns?: Column[],
+        columns?: Column<T>[],
         /**
          * The data for the table
          */
@@ -362,5 +363,16 @@ declare module "react-base-table" {
     }
 
     export default class BaseTable<T> extends React.PureComponent<IBaseTableProps<T>, {}> {
+    }
+
+    export interface CellRenderProps<T> {
+        cellData?: any;
+        column: Column<T>;
+        columnIndex: number;
+        columns: Column<T>[];
+        container?: any;
+        isScrolling?: any;
+        rowData: T;
+        rowIndex: number;
     }
 }
