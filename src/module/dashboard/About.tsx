@@ -32,10 +32,12 @@ export default class About extends React.Component {
       });
 
     const columns = generateColumns(10, "'column-'", null);
+    columns[0].frozen = "left";
     const data = generateData(columns, 200, 'row-');
 
     return <div>
       <BaseTable
+        fixed={true}
         width={600}
         height={400}
         columns={columns}
