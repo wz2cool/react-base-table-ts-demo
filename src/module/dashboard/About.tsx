@@ -9,6 +9,10 @@ export default class About extends React.Component {
     console.log(param);
   }
 
+  private handleEndReached(param: any) {
+    console.log(param);
+  }
+
   public render() {
     const rowEventHandlers: RowEventHandlers<Restaurant> = {
       onDoubleClick: this.handleRowOnClick,
@@ -25,6 +29,8 @@ export default class About extends React.Component {
         rowHeight={30}
         headerHeight={30}
         rowEventHandlers={rowEventHandlers}
+        onEndReached={this.handleEndReached}
+        onEndReachedThreshold={300}
       >
         <Column key="name" width={200} dataKey="name" title="餐厅名称" frozen={true} />
         <Column key="province" width={80} dataKey="province" title="省" />

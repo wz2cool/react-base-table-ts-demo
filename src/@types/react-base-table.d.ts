@@ -338,7 +338,7 @@ declare module "react-base-table" {
          * A callback function when scrolling the table within `onEndReachedThreshold` of the bottom
          * The handler is of the shape of `({ distanceFromEnd }) => *`
          */
-        onEndReached?: (param: { distanceFromEnd: any }) => void,
+        onEndReached?: (param: { distanceFromEnd: number }) => void,
         /**
          * Threshold in pixels for calling `onEndReached`.
          */
