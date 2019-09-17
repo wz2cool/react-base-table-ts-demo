@@ -116,7 +116,7 @@ declare module "react-base-table" {
         /**
          * The data for the table
          */
-        data?: any,
+        data?: any[],
         /**
          * The data be frozen to top, `rowIndex` is negative and started from `-1`
          */
