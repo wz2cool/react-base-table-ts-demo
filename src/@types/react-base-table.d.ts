@@ -301,6 +301,49 @@ declare module "react-base-table" {
          * Number of rows to render above/below the visible bounds of the list
          */
         overscanRowCount?: number,
+        /**
+         * A callback function when scrolling the table
+         * The handler is of the shape of `({ scrollLeft, scrollTop, horizontalScrollDirection, verticalScrollDirection, scrollUpdateWasRequested }) => *`
+         *
+         * `scrollLeft` and `scrollTop` are numbers.
+         *
+         * `horizontalDirection` and `verticalDirection` are either `forward` or `backward`.
+         *
+         * `scrollUpdateWasRequested` is a boolean. This value is true if the scroll was caused by `scrollTo*`,
+         * and false if it was the result of a user interaction in the browser.
+         */
+        onScroll?: (param: {
+            scrollLeft: number,
+            scrollTop: number,
+            horizontalScrollDirection: "forward" | "backward",
+            verticalScrollDirection: "forward" | "backward",
+            scrollUpdateWasRequested: boolean
+        }) => void,
+        /**
+         * A callback function when scrolling the table within `onEndReachedThreshold` of the bottom
+         * The handler is of the shape of `({ distanceFromEnd }) => *`
+         */
+        onEndReached: (param: { distanceFromEnd: any }) => void,
+        /**
+         * Threshold in pixels for calling `onEndReached`.
+         */
+        onEndReachedThreshold: number,
+        /**
+         * A callback function with information about the slice of rows that were just rendered
+         * The handler is of the shape of `({ overscanStartIndex, overscanStopIndex, startIndex， stopIndex }) => *`
+         */
+        onRowsRendered: (param: { overscanStartIndex: any, overscanStopIndex: any, startIndex: any, stopIndex: any }) => void,
+        /**
+         * A callback function when the scrollbar presence state changed
+         * The handler is of the shape of `({ size, vertical, horizontal }) => *`
+         */
+        onScrollbarPresenceChange: (param: { size: any, vertical: any, horizontal: any }) => void,
+        /**
+         * A object for the row event handlers
+         * Each of the keys is row event name, like `onClick`, `onDoubleClick` and etc.
+         * Each of the handlers is of the shape of `({ rowData, rowIndex, rowKey, event }) => object`
+         */
+        rowEventHandlers: (param: { rowData: any, rowIndex: any, rowKey: any, event: any }) => any,
     }
 
     export default class BaseTable extends React.PureComponent<IBaseTableProps, {}> {

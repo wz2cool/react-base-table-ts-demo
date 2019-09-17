@@ -1,0 +1,4 @@
+.container {
+    width: calc(50vw + 220px);
+    height: 50vh;
+}
